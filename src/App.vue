@@ -32,11 +32,7 @@
         },
         data() {
             return {
-                todos: [
-                    {id: "001",title: "唱",done: true},
-                    {id: "002",title: "跳",done: false},
-                    {id: "003",title: "RAP",done: true},
-                ],
+                todos: JSON.parse(localStorage.getItem("todos")) || [],
                 competition: {
                     done: 0,
                     sum: 0
@@ -81,6 +77,9 @@
                     this.competition.sum = newValue.length;
                     //也可以使用reduce统计current的done值，然后与pre相加即可统计出总的已完成的任务个数
                     this.competition.done = newValue.filter(element => element.done===true).length;
+                    //一旦todos发生改变，就重新写入
+                    localStorage.setItem("todos",JSON.stringify(newValue));
+                    
                 }
             }
         }
