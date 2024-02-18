@@ -4,8 +4,6 @@
             v-for="todosObj in todos" 
             :key="todosObj.id" 
             :todoItem="todosObj" 
-            :reverseTodoDone="reverseTodoDone"
-            :deleteTodo="deleteTodo"
         />
 	</ul>
 </template>
@@ -17,7 +15,7 @@
         components: {
             MyItem,
         },
-        props: ["todos","reverseTodoDone","deleteTodo"],
+        props: ["todos"],
     }
 </script>
 

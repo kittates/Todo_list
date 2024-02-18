@@ -13,15 +13,15 @@
 <script>
     export default {
         name: "MyItem",
-        props: ["todoItem","reverseTodoDone","deleteTodo"],
+        props: ["todoItem"],
         methods: {
             showId(id) {
                 //通知App将对应id的todo项中的done属性取反
-                this.reverseTodoDone(id);
+                this.$bus.$emit("reverseTodoDone",id);
             },
             deleteItem(id) {
                 if(confirm("确定要删除？")) {
-                    this.deleteTodo(id);
+                    this.$bus.$emit("deleteTodo",id);
                 }
             }
         },

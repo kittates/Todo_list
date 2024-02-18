@@ -5,8 +5,6 @@
 				<MyHeader @addTodo="addTodo"/>
 				<MyList 
                     :todos="todos" 
-                    :reverseTodoDone="reverseTodoDone"
-                    :deleteTodo="deleteTodo"
                 />
 				<MyFooter 
                     :competition="competition"
@@ -82,7 +80,11 @@
                     
                 }
             }
-        }
+        },
+        mounted() {
+            this.$bus.$on("reverseTodoDone",this.reverseTodoDone);
+            this.$bus.$on("deleteTodo",this.deleteTodo);
+        },
     }
 </script>
 
