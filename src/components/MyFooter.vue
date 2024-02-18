@@ -6,18 +6,18 @@
 		<span>
 			<span>已完成{{competition.done}}</span> / 全部{{competition.sum}}
 		</span>
-		<button class="btn btn-danger" @click="clearDone">清除已完成任务</button>
-        <div class="photoBox" ref="photoBox">
+		<button class="btn btn-danger" @click="cleanAll">清除已完成任务</button>
+        <!-- <div class="photoBox" ref="photoBox">
             <p>咋还有这么多任务:(</p>
             <img src="../assets/shushu1.jpg" alt="">
-        </div>
+        </div> -->
 	</div>
 </template>
 
 <script>
     export default {
         name: "MyFooter",
-        props: ["competition","clearDone","todosIsAll"],
+        props: ["competition"],
         data() {
             return {
                 isAll: false,
@@ -35,7 +35,10 @@
         },
         methods: {
             checkAll(e) {
-                this.todosIsAll(e.target.checked);
+                this.$emit('todosIsAll',e.target.checked);
+            },
+            cleanAll() {
+                this.$emit('clearDone');
             }
         },
     }

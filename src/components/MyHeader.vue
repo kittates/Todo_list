@@ -17,11 +17,10 @@
                     title: this.$refs.addInfo.value,
                     done: false
                 }
-                this.addTodo(todoObj);
+                this.$emit('addTodo', todoObj);
                 this.$refs.addInfo.value = "";
             }
         },
-        props: ["addTodo"],
     }
 </script>
 

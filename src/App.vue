@@ -2,7 +2,7 @@
     <div id="root">
 		<div class="todo-container">
 			<div class="todo-wrap">
-				<MyHeader :addTodo="addTodo"/>
+				<MyHeader @addTodo="addTodo"/>
 				<MyList 
                     :todos="todos" 
                     :reverseTodoDone="reverseTodoDone"
@@ -10,8 +10,8 @@
                 />
 				<MyFooter 
                     :competition="competition"
-                    :clearDone="clearDone"
-                    :todosIsAll="todosIsAll"
+                    @clearDone="clearDone"
+                    @todosIsAll="todosIsAll"
                 />
 			</div>
 		</div>
