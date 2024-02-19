@@ -65,6 +65,19 @@
             },
             todosIsAll(newValue) {
                 this.todos.forEach((element) => element.done = newValue);
+            },
+            /**
+             * @param {Array} data
+             * @param {String} data[0][0] id
+             * @param {String} data[0][1] info
+             */
+            modifyTodo(...data) {
+                this.todos.find((element) => {
+                    if(element.id === data[0][0]) {
+                        element.title = data[0][1];
+                        return;
+                    }
+                })
             }
         },
         watch: {
@@ -84,6 +97,7 @@
         mounted() {
             this.$bus.$on("reverseTodoDone",this.reverseTodoDone);
             this.$bus.$on("deleteTodo",this.deleteTodo);
+            this.$bus.$on("modifyTodo",this.modifyTodo);
         },
     }
 </script>
@@ -114,6 +128,16 @@
 		color: #fff;
 		background-color: #bd362f;
 	}
+    .btn-modify {
+        color: #fff;;
+        background-color: #54b884;
+        border: 1px solid #0e8648;
+        margin-right: 5px;
+    }
+    .btn-modify:hover {
+        color: #fff;;
+        background-color: #0e8648;
+    }
 	.btn:focus {
 		outline: none;
 	}
