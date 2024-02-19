@@ -6,7 +6,11 @@
 			<!-- <input type="checkbox" v-model="todo.done"/> -->
 			<span v-show="!isEdit">{{todoItem.title}}</span> 
             <span v-show="isEdit">
-                <input type="text" class="modifyInput" :value="todoItem.title" ref="modifyInput" @blur="Update(todoItem.id)" @keydown.enter="Update(todoItem.id)">
+                <input type="text" class="modifyInput" 
+                    :value="todoItem.title" ref="modifyInput" 
+                    @blur="Update(todoItem.id)" 
+                    @keydown.enter="Update(todoItem.id)"
+                >
             </span>
 		</label>
 		<button class="btn btn-danger" @click="deleteItem(todoItem.id)">删除</button>
@@ -42,10 +46,11 @@
             //失焦和enter时触发
             Update(id) {
                 if(this.isEdit) {
+                    this.isEdit = false;    //这样enter触发后将isEdit变为false,之后的blur就不会再次执行了
                     let info = this.$refs.modifyInput.value.trim();
                     if(info==="") return alert("内容不能为空");
                     this.$bus.$emit("modifyTodo",[id,info]);
-                    this.isEdit = false
+                    
                 }
             }
         },
