@@ -1,21 +1,25 @@
+<!-- eslint-disable -->
 <template>
-    <li>
-		<label>
-			<input type="checkbox" :checked="todoItem.done" @click="showId(todoItem.id)" />
-			<!-- 如下代码也能实现功能，但是不太推荐，因为有点违反原则，因为修改了props -->
-			<!-- <input type="checkbox" v-model="todo.done"/> -->
-			<span v-show="!isEdit">{{todoItem.title}}</span> 
-            <span v-show="isEdit">
-                <input type="text" class="modifyInput" 
-                    :value="todoItem.title" ref="modifyInput" 
-                    @blur="Update(todoItem.id)" 
-                    @keydown.enter="Update(todoItem.id)"
-                >
-            </span>
-		</label>
-		<button class="btn btn-danger" @click="deleteItem(todoItem.id)">删除</button>
-		<button class="btn btn-modify" @click="modify(todoItem.id)">编辑</button>
-	</li>
+    <!-- 在MyList中也可以使用transition-group实现相同的功能 -->
+    <transition name="todo" :appear="true">
+        <li>
+		    <label>
+		    	<input type="checkbox" :checked="todoItem.done" @click="showId(todoItem.id)" />
+		    	<!-- 如下代码也能实现功能，但是不太推荐，因为有点违反原则，因为修改了props -->
+		    	<!-- <input type="checkbox" v-model="todo.done"/> -->
+		    	<span v-show="!isEdit">{{todoItem.title}}</span> 
+                <span v-show="isEdit">
+                    <input type="text" class="modifyInput" 
+                        :value="todoItem.title" ref="modifyInput" 
+                        @blur="Update(todoItem.id)" 
+                        @keydown.enter="Update(todoItem.id)"
+                    >
+                </span>
+		    </label>
+		    <button class="btn btn-danger" @click="deleteItem(todoItem.id)">删除</button>
+		    <button class="btn btn-modify" @click="modify(todoItem.id)">编辑</button>
+	    </li>
+    </transition>
 </template>
 
 <script>
@@ -41,6 +45,7 @@
                 this.isEdit = true;
                 this.$nextTick(() => {
                     this.$refs.modifyInput.focus();
+                    console.log("这里是nextTick ",this);
                 });
             },
             //失焦和enter时触发
@@ -112,5 +117,19 @@
     li .modifyInput:focus {
         border-color: rgba(82, 168, 236, 0.8);
         box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6);
+    }
+    .todo-enter-active {
+        animation: identifier 0.5s linear;
+    }
+    .todo-leave-active {
+        animation: identifier 0.5s linear reverse;
+    }
+    @keyframes identifier {
+        from {
+            transform: translateX(100%);
+        }
+        to {
+            transform: translateX(0);
+        }
     }
 </style>
